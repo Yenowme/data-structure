@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include "single_linked_list.h"
 
-t_node	*lstnew(int data)
+//값 변경시 변경
+t_node	*lstnew(int x,int y)
 {
 	t_node	*new;
 
 	new = (t_node *)malloc(sizeof(t_node));
-	new->data = data;
+	new->x = x;
+	new->y = y;
 	new->next = NULL;
 	return (new);
 }
@@ -44,6 +46,17 @@ void	lstdelone(t_node *lst)
 	if (!lst)
 		return ;
 	free(lst);
+}
+
+// 앞부분의 노드 제거
+t_node *delete_first(t_node *head)
+{
+	t_node *removed;
+	if (head == NULL)
+		return NULL;
+	removed = head;
+	head = removed->next;
+	return head;
 }
 
 void	lstclear(t_node **lst)
@@ -88,31 +101,32 @@ t_node	*reverse_list(t_node *head)
 	return (q);
 }
 
+//노드값 변경시 변경
 void	lst_print(t_node *lst)
 {
-	printf("[");
+	printf("---\n");
 	while (lst)
 	{
-		printf(" %d", lst->data);
+		printf("[ x = %d y = %d ]\n", lst->x, lst->y);
 		lst = lst->next;
 	}
-	printf(" ]\n");
+	printf("---\n");
 }
 
-int main(void)
-{
-	t_node	*lst;
-	t_node	*new;
+//int main(void)
+//{
+//	t_node	*lst;
+//	t_node	*new;
 
-	lst = lstnew(1);
-	lst_print(lst);
-	lstadd_back(&lst, lstnew(2));
-	lstadd_back(&lst, lstnew(4));
-	lstadd_front(&lst, lstnew(7));
-	lstadd_back(&lst, lstnew(-7));
-	lst_print(lst);
-	lst = reverse_list(lst);
-	lst_print(lst);
-	lstclear(&lst);
-	lst_print(lst);
-}
+//	lst = lstnew(1);
+//	lst_print(lst);
+//	lstadd_back(&lst, lstnew(2));
+//	lstadd_back(&lst, lstnew(4));
+//	lstadd_front(&lst, lstnew(7));
+//	lstadd_back(&lst, lstnew(-7));
+//	lst_print(lst);
+//	lst = reverse_list(lst);
+//	lst_print(lst);
+//	lstclear(&lst);
+//	lst_print(lst);
+//}
